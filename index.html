@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senin İçin ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #ff1a1a;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+
+p {
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1.2s;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nextBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.6s;
+}
+
+.nextBtn.showBtn {
+    opacity: 0.8;
+    transform: translateY(0);
+}
+
+.nextBtn:hover {
+    opacity: 1;
+    background: darkred;
+}
+
+.glow {
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px red; }
+    to { text-shadow: 0 0 40px red; }
+}
+
+#game {
+    position: relative;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#finalText {
+    font-size: 1.8rem;
+    color: #ff4d4d;
+    text-shadow: 0 0 20px red;
+}
+
+.heartRain {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    color: red;
+    animation: fall 3s linear forwards;
+}
+
+#intro{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    overflow:hidden;
+}
+
+#typing{
+    color:white;
+    font-size:48px;
+    text-shadow:0 0 20px #fff;
+    margin-bottom:40px;
+}
+
+#startBtn{
+
+    padding:18px 45px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:#ff2b55;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.4s;
+}
+
+#startBtn:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:0 0 30px #ff2b55;
+
+}
+
+.snowflake{
+
+position:fixed;
+
+top:-10px;
+
+color:white;
+
+pointer-events:none;
+
+animation:fall linear infinite;
+
+}
+
+@keyframes fall{
+
+to{
+
+transform:translateY(110vh);
+
+}
+
+}
+
+.star{
+
+position:fixed;
+
+width:2px;
+
+height:2px;
+
+background:white;
+
+border-radius:50%;
+
+animation:twinkle 2s infinite alternate;
+
+}
+
+@keyframes twinkle{
+
+from{
+
+opacity:.2;
+
+}
+
+to{
+
+opacity:1;
+
+box-shadow:0 0 10px white;
+
+}
+
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+<div id="intro">
+
+    <div id="stars"></div>
+    <div id="snow"></div>
+
+    <h1 id="typing"></h1>
+
+    <button id="startBtn">
+        💌 Yolculuğa Başla
+    </button>
+
+</div>
+<section>
+    <h1>Bir şey fark ettim...</h1>
+    <p>Hayatımda ilk defa, birine bakınca zamanın durmasını istedim.</p>
+    <button class="nextBtn">Devam et ❤️</button>
+</section>
+
+<section>
+    <h1>Ve bu sen oldun</h1>
+    <p>
+        Kod yazarken bile aklıma düşüyorsun...  
+        Sanki kalbim arka planda sürekli seni çalıştırıyor.
+    </p>
+    <button class="nextBtn">Devam et ❤️</button>
+</section>
+
+<section>
+    <h1>Garip olan şu</h1>
+    <p>
+        Seni düşünmek bir alışkanlık değil...  
+        Resmen en sevdiğim bağımlılık.
+    </p>
+    <button class="nextBtn">Devam et ❤️</button>
+</section>
+
+<section id="game">
+    <h1 class="glow">Kalbimi yakala ❤️</h1>
+    <p>10 tane yakalarsan sana sakladığım şeyi göstereceğim...</p>
+    <p>Skor: <span id="score">0</span></p>
+</section>
+
+<section id="final">
+    <h1 class="glow">Artık saklayamam</h1>
+    <p id="finalText">...</p>
+</section>
+
+<script>
+
+const text =
+"Bu sayfa sadece Rozelin için hazırlandı... ❤️";
+
+let i=0;
+
+function type(){
+
+if(i<text.length){
+
+typing.innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(type,70);
+
+}
+
+}
+
+type();
+
+for(let i=0;i<250;i++){
+
+const s=document.createElement("div");
+
+s.className="snowflake";
+
+s.innerHTML="❄";
+
+s.style.left=Math.random()*100+"vw";
+
+s.style.animationDuration=(5+Math.random()*5)+"s";
+
+s.style.fontSize=(5+Math.random()*8)+"px";
+
+document.body.appendChild(s);
+
+}
+
+for(let i=0;i<180;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+
+star.style.top=Math.random()*100+"vh";
+
+star.style.animationDelay=Math.random()*2+"s";
+
+document.body.appendChild(star);
+
+}
+
+startBtn.onclick=()=>{
+
+intro.style.opacity="0";
+
+intro.style.transition="1s";
+
+setTimeout(()=>{
+
+intro.remove();
+
+},1000);
+
+};
+const elements = document.querySelectorAll("h1, p, .nextBtn");
+
+function reveal() {
+    elements.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            el.classList.add("show");
+
+            if (el.classList.contains("nextBtn")) {
+                el.classList.add("showBtn");
+            }
+        }
+    });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+
+const sections = document.querySelectorAll("section");
+let current = 0;
+
+document.querySelectorAll(".nextBtn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        current++;
+        if (sections[current]) {
+            sections[current].scrollIntoView({ behavior: "smooth" });
+        }
+    });
+});
+
+let score = 0;
+const gameSection = document.getElementById("game");
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 90 + "%";
+    heart.style.top = Math.random() * 80 + "%";
+
+    heart.onclick = () => {
+        score++;
+        document.getElementById("score").innerText = score;
+        heart.remove();
+
+        if (score === 10) {
+            finishGame();
+        }
+    };
+
+    gameSection.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2000);
+}
+
+setInterval(createHeart, 700);
+
+function finishGame() {
+    document.getElementById("final").scrollIntoView({ behavior: "smooth" });
+
+    setTimeout(() => {
+        document.getElementById("finalText").innerText =
+            "Seninle ruhlarımız bir olana dek sevişmek istiyorum... ❤️";
+        startHeartRain();
+    }, 1000);
+}
+
+function startHeartRain() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heartRain");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }, 200);
+}
+</script>
+
+</body>
+</html>
